@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Covid Cases</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/template.css"> 
+</head>
+<body>
+
+<div class="container">
+    <h1>Cowin Dashboard</h1>
+	<table class="table table-hover">
+        <thead>
+            <tr> 
+                <th scope="col">Country</th>
+                <th scope="col">Confirmed</th>
+                <th scope="col">Active</th>
+                <th scope="col">Recovered</th>
+                <th scope="col">Deaths</th>
+                <th scope="col">Date</th>
+                <th scope="col">Graph</th>
+            </tr>
+        </thead>
+		<tbody>
+            {% for data in cases %}
+            <tr>
+                <td scope='row'>{{ data["Country"] }}</td>
+                <td>{{ data["Confirmed"] }}</td>
+                <td>{{ data["Active"] }}</td>
+                <td>{{ data["Recovered"] }}</td>
+                <td>{{ data["Deaths"]}}</td>
+                <td>{{ data["Date"] }}</td>
+                <td>
+                    <form action="{{url_for('case_history') }}" method="GET">
+                        <input type="hidden" name="Confirmed" value="{{ data['Confirmed'] }}">
+                        <input type="hidden" name="Active" value="{{ data['Active'] }}">
+                        <input type="hidden" name="Recovered" value="{{ data['Recovered'] }}">
+                        <input type="hidden" name="Deaths" value="{{ data['Deaths'] }}">
+                        <button>Chart</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+		</tbody>
+	</table>
+</div>
+
+{% include "footer.html"%}
+
+</body>
+</html>
