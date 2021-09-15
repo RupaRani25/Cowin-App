@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script type="text/javascript">
+var cases = JSON.parse('{{ cases | tojson | safe}}');
+window.onload = function () {
+	var chart = new CanvasJS.Chart("chartContainer", {
+		title:{
+			text: "Chart for No of cases"              
+		},
+        data: [              
+		{
+			type: "column",
+		    dataPoints: [
+				{ label: "Confirmed",  y: parseInt(cases.Confirmed) },
+				{ label: "Active", y: parseInt(cases.Active)  },
+				{ label: "Recovered", y: parseInt(cases.Recovered)  },
+				{ label: "Deaths",  y: parseInt(cases.Deaths)  },
+                
+			]
+        }
+		]
+	});
+	chart.render();
+}
+
+</script>
+</head>
+<body>
+<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+</body>
+</html>
